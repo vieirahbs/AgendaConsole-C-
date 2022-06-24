@@ -40,13 +40,13 @@ namespace AgendaConsole.Telas
 
             Console.WriteLine();
             Console.Write("Deseja adicionar outro contato? (1)Sim - (2)Não: ");
-            int resposta = int.Parse(Console.ReadLine());
+            string resposta = Console.ReadLine();
 
-            if (resposta == 1)
+            if (resposta == "1")
             {
                 MostraTelaCadastroContato(usuario);
             }
-            else if (resposta == 2)
+            else
             {
                 TelaPrincipal.MostraTelaPrincipal(usuario);
             }
