@@ -16,7 +16,7 @@ namespace AgendaConsole.Telas
             Console.WriteLine("Se quiser voltar, deixe os campos vazios e pressione Enter.");
             Console.WriteLine();
 
-            Console.Write("Informe seu nome: ");
+            Console.Write("Informe seu nome completo: ");
             string nome = Console.ReadLine().Trim();
             Console.Write("Crie um login: ");
             string login = Console.ReadLine().Trim();

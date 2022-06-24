@@ -14,7 +14,7 @@ namespace AgendaConsole.Telas
             string[] nomeVect = usuario.Nome.Split(" ");
             Console.Clear();
             Console.WriteLine("********************************************");
-            Console.WriteLine("************** AGENDA CONSOLE **************");
+            Console.WriteLine("************* AGENDA CONSOLE ***************");
             Console.WriteLine("********************************************");
             Console.WriteLine("Olá, " + nomeVect[0] + "!");
 
