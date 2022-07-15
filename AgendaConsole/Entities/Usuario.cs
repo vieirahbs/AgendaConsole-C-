@@ -15,27 +15,50 @@ namespace AgendaConsole.Entities
         {
         }
 
-        public static bool CriarCadastro(string nome, string login, string senha)
+        public static bool ConsultaUsuario(string login)
         {
             bool retorno = false;
             using (SqlConnection conexao = new SqlConnection())
             {
                 conexao.ConnectionString = "Data Source=DESKTOP-QINDOBS;Initial Catalog=AGENDA_CONSOLE; Integrated Security=True;Connect Timeout=30";
                 conexao.Open();
-                using(SqlCommand comando = new SqlCommand())
+                using (SqlCommand comando = new SqlCommand())
                 {
                     comando.Connection = conexao;
-                    comando.CommandText = "insert into USUARIO values (@nome, @login, @senha)";
-                    comando.Parameters.Add("@nome", SqlDbType.VarChar).Value = nome;
+                    comando.CommandText = "select count(*) from USUARIO where LOGIN_US = @login";
                     comando.Parameters.Add("@login", SqlDbType.VarChar).Value = login;
-                    comando.Parameters.Add("@senha", SqlDbType.VarChar).Value = CriptoHelper.HashMD5(senha);
 
-                    retorno = ((int)comando.ExecuteNonQuery() > 0);
+                    retorno = ((int)comando.ExecuteScalar() > 0);
                 }
             }
             return retorno;
         }
-        
+
+        public static bool CriarCadastro(string nome, string login, string senha)
+        {
+            bool retorno = false;
+            bool ExisteUsuario = ConsultaUsuario(login);
+            if (!ExisteUsuario)
+            {
+                using (SqlConnection conexao = new SqlConnection())
+                {
+                    conexao.ConnectionString = "Data Source=DESKTOP-QINDOBS;Initial Catalog=AGENDA_CONSOLE; Integrated Security=True;Connect Timeout=30";
+                    conexao.Open();
+                    using (SqlCommand comando = new SqlCommand())
+                    {
+                        comando.Connection = conexao;
+                        comando.CommandText = "insert into USUARIO values (@nome, @login, @senha)";
+                        comando.Parameters.Add("@nome", SqlDbType.VarChar).Value = nome;
+                        comando.Parameters.Add("@login", SqlDbType.VarChar).Value = login;
+                        comando.Parameters.Add("@senha", SqlDbType.VarChar).Value = CriptoHelper.HashMD5(senha);
+
+                        retorno = ((int)comando.ExecuteNonQuery() > 0);
+                    }
+                }
+            }
+            return retorno;
+        }
+
         public static Usuario ValidarUsuario(string login, string senha)
         {
             Usuario retorno = new Usuario();

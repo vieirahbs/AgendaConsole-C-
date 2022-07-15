@@ -52,7 +52,7 @@ namespace AgendaConsole.Telas
                 }
                 else
                 {
-                    Console.WriteLine("Houve uma falha no cadastro");
+                    Console.WriteLine("Cadastro NÃO realizado! Login já utilizado.");
                     Console.WriteLine();
                     Console.Write("Pressione Enter para voltar a tela incial: ");
                     string enter = Console.ReadLine();
